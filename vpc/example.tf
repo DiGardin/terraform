@@ -5,12 +5,19 @@ provider "aws"{
 
 
 # VPC name and cidr block 
-resource "aws_vpc" main" {
+/*resource "aws_vpc" main" {
     cidr_block = "10.0.0.0/16"
 tags {
         Name = "qatVpc",
         env  = "qat"
     }
+}*/
+resource "aws_vpc" "main" {
+    cidr_block = "10.0.0.0/16"
+   tags {
+        Name = "qatVpc"
+        env  = "qat"
+    } 
 }
 
 
@@ -47,7 +54,7 @@ resource "aws_security_group" "allow_ssh" {
   ingress {
       from_port = 22
       to_port = 22
-      protocol = tcp
+      protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -67,5 +74,5 @@ resource "aws_instance" webserver {
 	ami="ami-31490d51"
 	instance_type="t2.micro"
 	subnet_id= "${aws_subnet.Pub-sub01.id}"
-	security_group= "${aws_security_group" "allow_ssh}"
+	vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
 }
