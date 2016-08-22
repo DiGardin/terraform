@@ -5,8 +5,8 @@ provider "aws"{
 }
 
 resource "aws_iam_user" "user" {
-    name = "test-user"
-    path = "/system/"
+    name = "${var.user_name}"
+    path = "/"
 }
 
 resource "aws_iam_access_key" "user-key" {
@@ -14,6 +14,7 @@ resource "aws_iam_access_key" "user-key" {
     depends_on = ["aws_iam_user.user"]
 }
 
+/*
 resource "aws_iam_user_policy" "ec2-read" {
     name = "ec2-read"
     user = "${aws_iam_user.user.name}"
@@ -33,6 +34,7 @@ resource "aws_iam_user_policy" "ec2-read" {
 }
 EOF
 }
+*/
 
 output "access-key" {
     value = "${aws_iam_access_key.user-key.id}"

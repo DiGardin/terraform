@@ -9,7 +9,7 @@ resource "aws_iam_user_policy_attachment" "attach_policy" {
 }
 
 */
-resource "aws_iam_user_policy_attachment" "test-attach" {
+resource "aws_iam_user_policy_attachment" "attach-policy" {
     user = "${var.iam_user}"
     policy_arn = "${var.iam_policy_arn}"
 }
